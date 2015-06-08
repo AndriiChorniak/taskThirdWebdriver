@@ -26,24 +26,24 @@ import driver.WebDriverFactory;
 public class TestPN {
 
     private static final String START_URL = "http://pn.com.ua/";
-    private static final String VOLUME_FIRST = "23 л";
-    private static final String VOLUME_SECOND = "20 л";
-    private static final String INNER_COATING_FIRST = "Биокерамика";
-    private static final String INNER_COATING_SECOND = "Эмаль";
-    private static final String POWER_FIRST = "800 Вт";
-    private static final String POWER_SECOND = "700 Вт";
-    private static final String DISPLAY_FIRST = "есть";
-    private static final String CONTROL_FIRST = "Электронное";
-    private static final String CONTROL_SECOND = "Механическое";
-    private static final String OPENNING_DOOR_FIRST = "Ручкой";
-    private static final String OPENNING_DOOR_SECOND = "Кнопкой";
-    private static final String AUTOMATED_FUNC_FIRST = "Разогрев, Разморозка, Приготовление";
-    private static final String AUTOMATED_FUNC_SECOND = "Разогрев, Разморозка";
-    private static final String ADDITION_FIRST = "Блокировка от детей";
-    private static final String COLOUR_FIRST = "Серебристый";
-    private static final String COLOUR_SECOND = "Белый";
-    private static final String SIZE_FIRST = "27.5x48.9x37.4 см";
-    private static final String WEIGHT_FIRST = "12 кг";
+    private static final String VOLUME_FIRST = "23 Р»";
+    private static final String VOLUME_SECOND = "20 Р»";
+    private static final String INNER_COATING_FIRST = "Р‘РёРѕРєРµСЂР°РјРёРєР°";
+    private static final String INNER_COATING_SECOND = "Р­РјР°Р»СЊ";
+    private static final String POWER_FIRST = "800 Р’С‚";
+    private static final String POWER_SECOND = "700 Р’С‚";
+    private static final String DISPLAY_FIRST = "РµСЃС‚СЊ";
+    private static final String CONTROL_FIRST = "Р­Р»РµРєС‚СЂРѕРЅРЅРѕРµ";
+    private static final String CONTROL_SECOND = "РњРµС…Р°РЅРёС‡РµСЃРєРѕРµ";
+    private static final String OPENNING_DOOR_FIRST = "Р СѓС‡РєРѕР№";
+    private static final String OPENNING_DOOR_SECOND = "РљРЅРѕРїРєРѕР№";
+    private static final String AUTOMATED_FUNC_FIRST = "Р Р°Р·РѕРіСЂРµРІ, Р Р°Р·РјРѕСЂРѕР·РєР°, РџСЂРёРіРѕС‚РѕРІР»РµРЅРёРµ";
+    private static final String AUTOMATED_FUNC_SECOND = "Р Р°Р·РѕРіСЂРµРІ, Р Р°Р·РјРѕСЂРѕР·РєР°";
+    private static final String ADDITION_FIRST = "Р‘Р»РѕРєРёСЂРѕРІРєР° РѕС‚ РґРµС‚РµР№";
+    private static final String COLOUR_FIRST = "РЎРµСЂРµР±СЂРёСЃС‚С‹Р№";
+    private static final String COLOUR_SECOND = "Р‘РµР»С‹Р№";
+    private static final String SIZE_FIRST = "27.5x48.9x37.4 СЃРј";
+    private static final String WEIGHT_FIRST = "12 РєРі";
     private WebDriver driver;
     private WebDriverFactory webDriverFactory = new WebDriverFactory();
     private WebDriverWait wait;
@@ -205,7 +205,7 @@ public class TestPN {
     private boolean verifyControlWeight() {
         breadMaker.controlWeight.click();
         Boolean flag = false;
-        String filterProducer = "Регулировка веса";
+        String filterProducer = "Р РµРіСѓР»РёСЂРѕРІРєР° РІРµСЃР°";
         List<WebElement> products = breadMaker.allProductWithControlWeight;
         for (WebElement element : products) {
             if (element.getText().contains(filterProducer)) {
@@ -241,13 +241,13 @@ public class TestPN {
         int filterMinPrice = 6000;
         List<WebElement> products = any.allprices;
         for (WebElement element : products) {
-            if (filterMinPrice <= Integer.parseInt(element.getText().replaceAll(" ", "").replace("грн", "")))
+            if (filterMinPrice <= Integer.parseInt(element.getText().replaceAll(" ", "").replace("РіСЂРЅ", "")))
                 flag = true;
             else {
                 flag = false;
                 return flag;
             }
-            filterMinPrice = Integer.parseInt(element.getText().replaceAll(" ", "").replace("грн", ""));
+            filterMinPrice = Integer.parseInt(element.getText().replaceAll(" ", "").replace("РіСЂРЅ", ""));
         }
         return flag;
 
@@ -260,7 +260,7 @@ public class TestPN {
         int filterMaxPrice = 9000;
         List<WebElement> products = any.allprices;
         for (WebElement element : products) {
-            if (filterMaxPrice >= Integer.parseInt(element.getText().replaceAll(" ", "").replace("грн", "")))
+            if (filterMaxPrice >= Integer.parseInt(element.getText().replaceAll(" ", "").replace("РіСЂРЅ", "")))
                 flag = true;
             else {
                 flag = false;
@@ -280,13 +280,13 @@ public class TestPN {
         int minPrice = 0;
         List<WebElement> products = any.allprices;
         for (WebElement element : products) {
-            if (minPrice < Integer.parseInt(element.getText().replaceAll(" ", "").replace("грн", "")))
+            if (minPrice < Integer.parseInt(element.getText().replaceAll(" ", "").replace("РіСЂРЅ", "")))
                 flag = true;
             else {
                 flag = false;
                 return flag;
             }
-            minPrice = Integer.parseInt(element.getText().replaceAll(" ", "").replace("грн", ""));
+            minPrice = Integer.parseInt(element.getText().replaceAll(" ", "").replace("РіСЂРЅ", ""));
         }
         return flag;
     }
