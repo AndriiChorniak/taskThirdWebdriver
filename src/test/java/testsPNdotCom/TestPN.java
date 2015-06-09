@@ -24,7 +24,7 @@ import pages.WasherPage;
 import driver.WebDriverFactory;
 
 public class TestPN {
-
+    
     private static final String START_URL = "http://pn.com.ua/";
     private static final String VOLUME_FIRST = "23 л";
     private static final String VOLUME_SECOND = "20 л";
@@ -57,6 +57,7 @@ public class TestPN {
 
     @BeforeClass
     public void startBrowser() {
+        
         try {
             driver = webDriverFactory.createWebdriver("firefox");
         } catch (MalformedURLException e) {
@@ -178,7 +179,7 @@ public class TestPN {
     private boolean verifyConditioner(WebElement linkOnConditioner) {
         main.buttonConditioner.click();
         conditioner.buttonSortByPrice.click();
-        linkOnConditioner.click(); //
+        linkOnConditioner.click();
         Boolean flag = false;
         List<WebElement> valueOfCharacteristicsOnInfoPage = conditioner.allValueOfCharacteristics;
         List<String> valueOnInfoPage = new ArrayList<String>();

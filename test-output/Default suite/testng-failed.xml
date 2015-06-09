@@ -6,8 +6,9 @@
       <class name="testsPNdotCom.TestPN">
         <methods>
           <include name="testFilterByPrice"/>
+          <include name="testFilterByControlWeight"/>
+          <include name="testCompareMicrowave"/>
           <include name="startBrowser"/>
-          <include name="quitBrowser"/>
           <include name="testSameInfo"/>
           <include name="testFilterByProducer"/>
           <include name="testSortByPrice"/>
