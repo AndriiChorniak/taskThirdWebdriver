@@ -7,13 +7,13 @@ import org.openqa.selenium.support.FindBy;
 
 public class BreadMakerPage extends AnyPage {
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2138/?fo=925']")
+    @FindBy(xpath = "//div[@class='is_empty_items']/a[contains(.,'Saturn')]")
     public WebElement producerSaturn;
 
     @FindBy(xpath = "//div[@class='name']/a")
     public List<WebElement> allProducerSaturnOnPage;
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2138/?fo=925&ff=882']")
+    @FindBy(xpath = "//div[@class='is_empty_items']/a[contains(.,'Регулировка веса')]")
     public WebElement controlWeight;
 
     @FindBy(xpath = "//div[@class='item']/div[@class='description']")

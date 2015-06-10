@@ -13,15 +13,13 @@ public class WebDriverFactory {
 	
 		  
 	  private enum TypeDriver {
-			FIREFOX, OPERA, CHROME, IE
+			FIREFOX, CHROME, IE
 			}
 			public WebDriver createWebdriver(String typeDriver) throws MalformedURLException {
 			TypeDriver type = TypeDriver.valueOf(typeDriver.toUpperCase());
 			switch (type) {
 			case FIREFOX:
 			return new FireFoxDriverBuilder().initializeWebDriver();
-			case OPERA:
-			return new OperaDriverBuilder().initializeWebDriver();
 			case CHROME:
 			return new ChromeDriverBuilder().initializeWebDriver();
 			case IE:

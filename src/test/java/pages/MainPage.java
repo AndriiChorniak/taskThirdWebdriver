@@ -7,21 +7,20 @@ public class MainPage {
     @FindBy(xpath = "//a[@href='http://pn.com.ua/']")
     public WebElement linkToMainPage;
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2161/']")
+    @FindBy(xpath = "//a[contains(.,'Стиральные машины')]")
     public WebElement buttonWashers;
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2137/']")
+    @FindBy(xpath = "//a[contains(.,'Микроволновки')]")
     public WebElement buttonMicrowaves;
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2163/']")
+    @FindBy(xpath = "//a[contains(.,'Холодильники')]")
     public WebElement buttonFridges;
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2138/']")
+    @FindBy(xpath = "//a[contains(.,'Хлебопечи')]")
     public WebElement buttonBreadMaker;
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2191/']")
+    @FindBy(xpath = "//a[contains(.,'Кондиционеры')]")
     public WebElement buttonConditioner;
-
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/domestic-equipment/']")
+    @FindBy(xpath = "//a[contains(.,'Бытовая техника')]")  
     public WebElement buttonDomesticEquipment;
 }

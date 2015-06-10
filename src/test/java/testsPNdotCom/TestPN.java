@@ -8,10 +8,14 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
+
+import com.google.common.collect.Ordering;
 
 import static org.testng.Assert.*;
 import pages.AnyPage;
@@ -24,7 +28,7 @@ import pages.WasherPage;
 import driver.WebDriverFactory;
 
 public class TestPN {
-    
+
     private static final String START_URL = "http://pn.com.ua/";
     private static final String VOLUME_FIRST = "23 л";
     private static final String VOLUME_SECOND = "20 л";
@@ -57,7 +61,7 @@ public class TestPN {
 
     @BeforeClass
     public void startBrowser() {
-        
+
         try {
             driver = webDriverFactory.createWebdriver("firefox");
         } catch (MalformedURLException e) {
@@ -101,22 +105,33 @@ public class TestPN {
     public void quitBrowser() {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.quit();
+    }
+
+    @AfterMethod
+    public void beforeTests() {
+        goToMainPage();
 
     }
 
     @Test(description = "Sort fridges by price")
     public void testSortByPrice() {
         main.buttonFridges.click();
-        fridges.buttonPrice.click();
+        any.buttonSortByPrice.click();
         assertTrue(doSortByPrice());
-        goToMainPage();
+    }
 
+    @Test(description = "Sort fridges by name")
+    public void testSortByName() {
+        main.buttonFridges.click();
+        fridges.buttonName.click();
+        assertTrue(Ordering.natural().isOrdered(doSortByName()));  
     }
 
     @Test(description = "Compare two microwave")
     public void testCompareMicrowave() {
         main.buttonMicrowaves.click();
         microwave.buttonCompareFirstMicrowave.click();
+        wait.until(ExpectedConditions.visibilityOf(microwave.buttonCompareSecondMicrowave));
         microwave.buttonCompareSecondMicrowave.click();
         microwave.linkCompare.click();
         assertEquals(microwave.volumeFirst.getText(), VOLUME_FIRST);
@@ -137,8 +152,6 @@ public class TestPN {
         assertEquals(microwave.colourSecond.getText(), COLOUR_SECOND);
         assertEquals(microwave.sizeFirst.getText(), SIZE_FIRST);
         assertEquals(microwave.weightFirst.getText(), WEIGHT_FIRST);
-        goToMainPage();
-
     }
 
     @Test(description = "Filter by price for washer")
@@ -146,7 +159,6 @@ public class TestPN {
         main.buttonWashers.click();
         assertTrue(verifyMinPrice());
         assertTrue(verifyMaxPrice());
-        goToMainPage();
     }
 
     @Test(description = "Filter by producer for breadMaker")
@@ -154,15 +166,13 @@ public class TestPN {
         main.buttonBreadMaker.click();
         breadMaker.producerSaturn.click();
         assertTrue(verifyProducer());
-        goToMainPage();
     }
 
     @Test(description = "Filter by control weight for breadMaker")
     public void testFilterByControlWeight() {
         main.buttonBreadMaker.click();
         breadMaker.producerSaturn.click();
-        verifyControlWeight();
-        goToMainPage();
+        assertTrue(verifyControlWeight());
     }
 
     @Test(description = "Is the same information about conditioner on two sourses")
@@ -172,13 +182,11 @@ public class TestPN {
         assertTrue(verifyConditioner(conditioner.linkThirdConditioner));
         assertTrue(verifyConditioner(conditioner.linkFourthConditioner));
         assertTrue(verifyConditioner(conditioner.linkFifthConditioner));
-        goToMainPage();
-
     }
 
     private boolean verifyConditioner(WebElement linkOnConditioner) {
         main.buttonConditioner.click();
-        conditioner.buttonSortByPrice.click();
+        any.buttonSortByPrice.click();
         linkOnConditioner.click();
         Boolean flag = false;
         List<WebElement> valueOfCharacteristicsOnInfoPage = conditioner.allValueOfCharacteristics;
@@ -187,9 +195,9 @@ public class TestPN {
             valueOnInfoPage.add(element.getText());
         }
         main.buttonConditioner.click();
-        conditioner.buttonSortByPrice.click();
+        any.buttonSortByPrice.click();
         conditioner.linkPraicy.click();
-        linkOnConditioner.click(); //
+        linkOnConditioner.click(); 
         List<WebElement> valueOfCharacteristicsOnPraicyPage = conditioner.allValueOfCharacteristics;
         List<String> valueOnPraicypage = new ArrayList<String>();
         for (WebElement element : valueOfCharacteristicsOnPraicyPage) {
@@ -237,7 +245,7 @@ public class TestPN {
 
     private boolean verifyMinPrice() {
         washer.minPrice.click();
-        washer.buttonSortByPrice.click();
+        any.buttonSortByPrice.click();
         Boolean flag = false;
         int filterMinPrice = 6000;
         List<WebElement> products = any.allprices;
@@ -290,5 +298,14 @@ public class TestPN {
             minPrice = Integer.parseInt(element.getText().replaceAll(" ", "").replace("грн", ""));
         }
         return flag;
+    }
+    
+    private List<String> doSortByName() {
+        List<WebElement> products = fridges.allNames;
+        List<String> names = new ArrayList<String>();
+        for (WebElement element : products) {
+            names.add(element.getText());
+           }   
+        return names; 
     }
 }

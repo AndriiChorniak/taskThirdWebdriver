@@ -5,13 +5,10 @@ import org.openqa.selenium.support.FindBy;
 
 public class WasherPage extends AnyPage {
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2161/?fp1=6000']")
+    @FindBy(xpath = "//div[contains(.,'Минимальная цена, грн:')]/../div[@class='is_empty_items']/a[contains(.,'6000')]")
     public WebElement minPrice;
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2161/?fp1=6000&sort=price']")
-    public WebElement buttonSortByPrice;
-
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2161/?fp1=6000&fp2=9000&sort=price']")
+    @FindBy(xpath = "//div[contains(.,'Максимальная цена, грн:')]/../div[@class='is_empty_items']/a[contains(.,'9000')]")
     public WebElement maxPrice;
 
     @FindBy(xpath = "//li[@class='pager-last last']")

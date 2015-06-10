@@ -7,9 +7,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class ConditionerPage extends AnyPage {
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/ct/2191/?sort=price']")
-    public WebElement buttonSortByPrice;
-
     @FindBy(xpath = "//a[@href='http://pn.com.ua/md/405140/']")
     public WebElement linkFirstConditioner;
 
@@ -28,7 +25,7 @@ public class ConditionerPage extends AnyPage {
     @FindBy(xpath = "//div[@class='row']/span[@class='val']")
     public List<WebElement> allValueOfCharacteristics;
 
-    @FindBy(xpath = "//a[@href='http://pn.com.ua/pr/2191/']")
+    @FindBy(xpath = "//div[@class='link']/a[contains(.,'прайсы')]")
     public WebElement linkPraicy;
 
 }
