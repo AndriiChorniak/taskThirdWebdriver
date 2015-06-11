@@ -1,9 +1,13 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class MicrowavePage extends AnyPage {
+
+    @FindBy(xpath = "//span[contains(.,'убрать')]")
+    public WebElement delete;
 
     @FindBy(xpath = "//span[@pid='784029']")
     public WebElement buttonCompareFirstMicrowave;
@@ -67,5 +71,9 @@ public class MicrowavePage extends AnyPage {
 
     @FindBy(xpath = "//tbody/tr[22]/td[2]")
     public WebElement weightFirst;
+
+    static public By findButtonDelete() {
+        return By.xpath("//span[contains(.,'убрать')]");
+    }
 
 }

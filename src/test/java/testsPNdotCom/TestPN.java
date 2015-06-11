@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -48,6 +49,8 @@ public class TestPN {
     private static final String COLOUR_SECOND = "Белый";
     private static final String SIZE_FIRST = "27.5x48.9x37.4 см";
     private static final String WEIGHT_FIRST = "12 кг";
+    private static final String FILTER_FUNCTION = "Регулировка веса";
+    private static final String FILTER_PRODUCER = "Saturn";
     private WebDriver driver;
     private WebDriverFactory webDriverFactory = new WebDriverFactory();
     private WebDriverWait wait;
@@ -63,12 +66,12 @@ public class TestPN {
     public void startBrowser() {
 
         try {
-            driver = webDriverFactory.createWebdriver("firefox");
+            driver = webDriverFactory.createWebdriver("chrome");
         } catch (MalformedURLException e) {
 
             e.printStackTrace();
         }
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 20);
         driver.manage().window().maximize();
         driver.get(START_URL);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -130,6 +133,11 @@ public class TestPN {
     @Test(description = "Compare two microwave")
     public void testCompareMicrowave() {
         main.buttonMicrowaves.click();
+        if(isElementPresent(MicrowavePage.findButtonDelete())){
+            microwave.delete.click();
+            microwave.delete.click();
+        }
+        wait.until(ExpectedConditions.visibilityOf(microwave.buttonCompareFirstMicrowave));
         microwave.buttonCompareFirstMicrowave.click();
         wait.until(ExpectedConditions.visibilityOf(microwave.buttonCompareSecondMicrowave));
         microwave.buttonCompareSecondMicrowave.click();
@@ -214,10 +222,9 @@ public class TestPN {
     private boolean verifyControlWeight() {
         breadMaker.controlWeight.click();
         Boolean flag = false;
-        String filterProducer = "Регулировка веса";
         List<WebElement> products = breadMaker.allProductWithControlWeight;
         for (WebElement element : products) {
-            if (element.getText().contains(filterProducer)) {
+            if (element.getText().contains(FILTER_FUNCTION)) {
                 flag = true;
             } else {
                 flag = false;
@@ -229,10 +236,9 @@ public class TestPN {
 
     private boolean verifyProducer() {
         Boolean flag = false;
-        String filterProducer = "Saturn";
         List<WebElement> products = breadMaker.allProducerSaturnOnPage;
         for (WebElement element : products) {
-            if (filterProducer.equals(element.getText().substring(0, 6))) {
+            if (FILTER_PRODUCER.equals(element.getText().substring(0, 6))) {
                 flag = true;
             } else {
                 flag = false;
@@ -289,7 +295,7 @@ public class TestPN {
         int minPrice = 0;
         List<WebElement> products = any.allprices;
         for (WebElement element : products) {
-            if (minPrice < Integer.parseInt(element.getText().replaceAll(" ", "").replace("грн", "")))
+            if (minPrice <= Integer.parseInt(element.getText().replaceAll(" ", "").replace("грн", "")))
                 flag = true;
             else {
                 flag = false;
@@ -307,5 +313,9 @@ public class TestPN {
             names.add(element.getText());
            }   
         return names; 
+    }
+    
+    private boolean isElementPresent(By by) {
+        return !driver.findElements(by).isEmpty();
     }
 }
